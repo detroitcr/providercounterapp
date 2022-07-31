@@ -19,12 +19,15 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<GetDataProvider>(context, listen: false).getRData(context);
+    //context.read
+    context.read<GetDataProvider>().getRData(context);
+    //Provider.of<GetDataProvider>(context, listen: false).getRData(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    final getMd1 = Provider.of<GetDataProvider>(context);
+    final getMd1 = context.watch<GetDataProvider>();
+    //Provider.of<GetDataProvider>(context);
     return SafeArea(
       child: Scaffold(
         body: getMd1.isProcessing
@@ -49,8 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 80,
                           child: Image.network(
                             getMd1.practice.data![index].avatar ?? '',
-
-                            // practiceModel.data![index].avatar ?? '',
                           ),
                         ),
                         const SizedBox(
@@ -59,8 +60,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                         const   Text('email : -'),
-                            const SizedBox(width: 5,),
+                            const Text('email : -'),
+                            const SizedBox(
+                              width: 5,
+                            ),
                             Text(
                               getMd1.practice.data![index].email!,
                             ),
